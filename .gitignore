@@ -1,0 +1,28 @@
+mkdir -p uploads static/results
+touch uploads/.gitkeep static/results/.gitkeep
+cat > .gitignore <<'EOF'
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# USER PHOTOS: never upload (privacy)
+uploads/*
+static/results/*
+!uploads/.gitkeep
+!static/results/.gitkeep
+
+# Secrets and local settings
+.env
+.vscode/
+.idea/
+
+# OS files and zips
+Thumbs.db
+.DS_Store
+*.zip
+EOF

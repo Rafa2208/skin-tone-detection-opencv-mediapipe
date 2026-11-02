@@ -1,0 +1,163 @@
+/* Webcam and additional styles */
+.upload-method {
+    margin: 20px 0;
+}
+
+.upload-options {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.upload-option-btn {
+    padding: 15px 25px;
+    border: 2px solid #667eea;
+    border-radius: 10px;
+    background: white;
+    color: #667eea;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    flex: 1;
+    max-width: 200px;
+}
+
+.upload-option-btn:hover,
+.upload-option-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.webcam-section {
+    margin: 20px 0;
+}
+
+.webcam-container {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#webcam {
+    width: 100%;
+    border-radius: 10px;
+    background: #000;
+}
+
+.webcam-controls {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.btn-webcam {
+    background: #00a8ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-webcam:hover {
+    background: #0097e6;
+}
+
+.btn-webcam.active {
+    background: #ff4757;
+}
+
+.btn-webcam.active:hover {
+    background: #ff3838;
+}
+
+.image-preview-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.image-preview {
+    position: relative;
+    display: inline-block;
+    max-width: 300px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-remove {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.upload-placeholder {
+    padding: 40px;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    text-align: center;
+    color: #666;
+}
+
+.upload-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.field-error {
+    color: #ff4757;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+input.error, select.error {
+    border-color: #ff4757 !important;
+}
+
+.toast-error {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ff4757;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+}
+
+.button-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

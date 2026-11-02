@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TonePrint - Capture Photo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 22px 33px;
+        }
+
+        .container {
+            max-width: 95%;
+            min-height: 85vh;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 44px 44px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 34px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 33px;
+            font-size: 20px;
+        }
+
+        .guidelines-section {
+            display: flex;
+            gap: 0;
+            align-items: flex-start;
+            justify-content: center;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .guidelines {
+            background: #ffffff;
+            padding: 22px 28px;
+            border-radius: 0;
+            border: none;
+            flex: 0 0 auto;
+            width: 50%;
+            min-width: 275px;
+        }
+
+        .guidelines h3 {
+            color: #333;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .guidelines ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .guidelines li {
+            padding: 14px 0;
+            color: #555;
+            display: flex;
+            align-items: start;
+            gap: 18px;
+            font-size: 17px;
+            line-height: 1.5;
+        }
+
+        .guidelines li::before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 20px;
+        }
+
+        .guidelines li.dont::before {
+            content: "✗";
+            color: #dc3545;
+        }
+
+        .photo-examples {
+            text-align: center;
+            background: #ffffff;
+            padding: 22px 28px;
+            border-radius: 0;
+            border: none;
+            flex: 0 0 auto;
+            width: 50%;
+            min-width: 275px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-examples img {
+            max-width: 100%;
+            max-height: 60vh;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .capture-options {
+            display: flex;
+            gap: 19px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .option-card {
+            flex: 1;
+            max-width: 302px;
+            min-width: 220px;
+            padding: 38px 28px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .option-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .option-icon {
+            font-size: 72px;
+            margin-bottom: 16px;
+        }
+
+        .option-title {
+            font-size: 23px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 18px;
+        }
+
+        .option-desc {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        #videoContainer {
+            display: none;
+            margin-bottom: 22px;
+        }
+
+        #video {
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin: 0 auto;
+        }
+
+        #canvas {
+            display: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .btn {
+            padding: 18px 33px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .privacy-notice {
+            background: #e7f3ff;
+            border: 1px solid #b3d7ff;
+            padding: 16px 19px;
+            border-radius: 12px;
+            margin-top: 16px;
+        }
+
+        .privacy-notice h4 {
+            color: #004085;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .privacy-notice p {
+            color: #004085;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 16px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .loading p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 22px;
+            border-radius: 12px;
+            margin-top: 14px;
+            font-size: 17px;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding: 28px 33px;
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .capture-options {
+                flex-direction: column;
+            }
+
+            .option-card {
+                min-width: 100%;
+            }
+
+            .option-icon {
+                font-size: 50px;
+            }
+
+            .option-title {
+                font-size: 20px;
+            }
+
+            .option-desc {
+                font-size: 15px;
+            }
+
+            .guidelines li {
+                font-size: 15px;
+            }
+        }
+    
+        @media (min-width: 900px) {
+            html { zoom: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Capture Your Photo</h1>
+        <p class="subtitle">Take a clear photo for accurate skin tone analysis</p>
+
+        <div class="capture-options" id="captureOptions">
+            <div class="option-card" onclick="startCamera()">
+                <div class="option-icon">📷</div>
+                <div class="option-title">Take Photo</div>
+                <div class="option-desc">Use your webcam to capture a live photo</div>
+            </div>
+
+            <div class="option-card" onclick="document.getElementById('fileInput').click()">
+                <div class="option-icon">📁</div>
+                <div class="option-title">Upload Image</div>
+                <div class="option-desc">Choose an existing photo from your device</div>
+            </div>
+        </div>
+
+        <input type="file" id="fileInput" accept="image/*">
+
+        <div id="videoContainer">
+            <video id="video" autoplay></video>
+            <canvas id="canvas"></canvas>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="capturePhoto()">📸 Capture Photo</button>
+                <button class="btn btn-secondary" onclick="stopCamera()">Cancel</button>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing your photo...</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="guidelines-section">
+            <div class="guidelines">
+                <h3>Photo Guidelines</h3>
+                <ul>
+                    <li>Take a selfie in natural daylight, facing a window</li>
+                    <li>Keep your face directly facing forward</li>
+                    <li>Ensure good lighting without harsh shadows</li>
+                    <li>Remove masks, sunglasses, or face coverings</li>
+                    <li>Keep a neutral expression with minimal makeup</li>
+                    <li class="dont">Avoid direct sunlight and artificial lighting</li>
+                    <li class="dont">Do not upload group photos - only ONE face allowed</li>
+                </ul>
+            </div>
+
+            <div class="photo-examples">
+                <img src="/static/images/photo-guide.png" alt="Photo Examples">
+            </div>
+        </div>
+
+        <div class="privacy-notice">
+            <h4>Privacy Policy</h4>
+            <p>
+                Your privacy is our priority. Your photos are processed locally in your browser 
+                and on our secure server. We do not store, share, or use your images for any 
+                purpose other than providing you with your skin tone analysis. 
+                All images are deleted from the server when you end the analysis or start a new one.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let stream = null;
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const fileInput = document.getElementById('fileInput');
+
+        async function startCamera() {
+            try {
+                document.getElementById('captureOptions').style.display = 'none';
+                document.getElementById('videoContainer').style.display = 'block';
+                
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 },
+                        facingMode: 'user'
+                    } 
+                });
+                video.srcObject = stream;
+            } catch (err) {
+                showError('Unable to access camera. Please check permissions or use the upload option.');
+                stopCamera();
+            }
+        }
+
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            document.getElementById('videoContainer').style.display = 'none';
+            document.getElementById('captureOptions').style.display = 'flex';
+        }
+
+        async function capturePhoto() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            
+            const imageData = canvas.toDataURL('image/jpeg', 0.9);
+            stopCamera();
+            await uploadImage(imageData);
+        }
+
+        fileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = async (event) => {
+                    await uploadImage(event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        async function uploadImage(imageData) {
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('errorMessage').classList.remove('active');
+
+            try {
+                const response = await fetch('/upload_image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ image: imageData })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    window.location.href = '/verify';
+                } else {
+                    showError(data.error || 'Failed to process image');
+                }
+            } catch (err) {
+                showError('Network error. Please try again.');
+            } finally {
+                document.getElementById('loading').classList.remove('active');
+            }
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = '⚠️ ' + message;
+            errorDiv.classList.add('active');
+            
+            // Hide error after 5 seconds
+            setTimeout(() => {
+                errorDiv.classList.remove('active');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

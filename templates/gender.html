@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TonePrint - Select Gender</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 22px 33px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 55px 66px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 95%;
+            width: 100%;
+            min-height: 80vh;
+            animation: fadeInUp 0.8s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #333;
+            font-size: 53px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 30px;
+            margin-bottom: 33px;
+        }
+
+        .gender-options {
+            display: flex;
+            gap: 22px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .gender-card {
+            flex: 1;
+            min-width: 154px;
+            max-width: 220px;
+            padding: 33px 22px;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .gender-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .gender-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .gender-icon {
+            font-size: 88px;
+            margin-bottom: 20px;
+        }
+
+        .gender-label {
+            font-size: 29px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .btn-continue {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 22px 66px;
+            font-size: 33px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            opacity: 0.5;
+            pointer-events: none;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn-continue.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .btn-continue.active:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .back-link {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .back-arrow {
+            font-size: 28px;
+        }
+
+        @media (max-width: 600px) {
+            .gender-options {
+                flex-direction: column;
+            }
+
+            .gender-card {
+                min-width: 100%;
+            }
+        }
+    
+        @media (min-width: 900px) {
+            html { zoom: 0.5; }
+            body { min-height: 200vh; }
+            .container { min-height: 160vh; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your Gender</h1>
+        <p class="subtitle">This helps us personalize your skin tone analysis</p>
+
+        <div class="gender-options">
+            <div class="gender-card" data-gender="male">
+                <div class="gender-icon"></div>
+                <div class="gender-label">Male</div>
+            </div>
+
+            <div class="gender-card" data-gender="female">
+                <div class="gender-icon"></div>
+                <div class="gender-label">Female</div>
+            </div>
+        </div>
+
+        <button class="btn-continue" id="continueBtn" disabled>Continue</button>
+        
+        <a href="/" class="back-link"><span class="back-arrow">←</span> Back to Home</a>
+    </div>
+
+    <script>
+        let selectedGender = null;
+        const cards = document.querySelectorAll('.gender-card');
+        const continueBtn = document.getElementById('continueBtn');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Remove selected class from all cards
+                cards.forEach(c => c.classList.remove('selected'));
+                
+                // Add selected class to clicked card
+                card.classList.add('selected');
+                
+                // Store selected gender
+                selectedGender = card.dataset.gender;
+                
+                // Enable continue button
+                continueBtn.classList.add('active');
+                continueBtn.disabled = false;
+            });
+        });
+
+        continueBtn.addEventListener('click', () => {
+            if (selectedGender) {
+                window.location.href = `/capture?gender=${selectedGender}`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TonePrint - Your Skin Tone</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            padding: 22px 33px;
+        }
+
+        .container {
+            max-width: 95%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 44px 55px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 55px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 33px;
+            font-size: 30px;
+        }
+
+        .analysis-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 28px;
+            margin-bottom: 22px;
+        }
+
+        .face-analysis {
+            background: #f8f9fa;
+            padding: 28px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .face-subtitle {
+            font-size: 26px;
+            color: #666;
+            margin-bottom: 19px;
+            font-style: italic;
+        }
+
+        .face-image {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border: 5px solid #28a745;
+        }
+
+        .skin-tone-info {
+            background: white;
+            border: 3px solid #e0e0e0;
+            padding: 22px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-title {
+            font-size: 35px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 14px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .palette-preview {
+            display: flex;
+            gap: 0;
+            margin-bottom: 16px;
+            height: 66px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .palette-color {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .palette-color:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .color-number {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .metrics-box {
+            background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+            border-left: 5px solid #667eea;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+        }
+
+        .metrics-title {
+            font-size: 31px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .metric-item:last-child { border-bottom: none; }
+
+        .metric-label { color: #666; font-size: 26px; }
+
+        .metric-value { color: #333; font-weight: 600; font-size: 26px; }
+
+        .rgb-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .rgb-color-box {
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            border: 3px solid #ddd;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .note-text {
+            margin-top: 20px;
+            font-size: 22px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 28px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 33px;
+        }
+
+        .btn {
+            padding: 28px 66px;
+            font-size: 29px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:disabled { opacity: 0.6; cursor: wait; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 3px solid #667eea;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #f8f9fa;
+            transform: translateY(-3px);
+        }
+
+        .privacy-note {
+            text-align: center;
+            color: #666;
+            font-size: 20px;
+            margin-top: 22px;
+        }
+
+        .loading { display: none; text-align: center; padding: 44px; }
+        .loading.active { display: block; }
+
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #667eea;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text { font-size: 35px; color: #666; }
+
+        @media (max-width: 1400px) {
+            .container { padding: 40px 50px; }
+            h1 { font-size: 44px; }
+            .subtitle { font-size: 22px; }
+        }
+
+        @media (max-width: 1024px) {
+            .analysis-section { grid-template-columns: 1fr; }
+            h1 { font-size: 38px; }
+            .subtitle { font-size: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            .container { padding: 40px 30px; }
+            h1 { font-size: 36px; }
+            .subtitle { font-size: 20px; }
+            .btn { width: 100%; font-size: 28px; padding: 28px 40px; }
+            .btn-group { flex-direction: column; gap: 20px; }
+            .privacy-note { font-size: 20px; }
+        }
+    
+        @media (min-width: 900px) {
+            html { zoom: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Skin Tone Analysis</h1>
+        <p class="subtitle">AI-powered skin tone detection</p>
+
+        <div class="loading active" id="loading">
+            <div class="spinner"></div>
+            <p class="loading-text">Loading your results...</p>
+        </div>
+
+        <div id="content" style="display: none;">
+            <div class="analysis-section">
+                <div class="face-analysis">
+                    <h2 class="section-title">Privacy-Masked Analysis</h2>
+                    <p class="face-subtitle">(Only the sharp regions were analysed)</p>
+                    <img id="overlayImage" class="face-image" alt="Privacy masked face analysis">
+                </div>
+
+                <div class="skin-tone-info">
+                    <h2 class="info-title"><span id="categoryTitle"></span><br>Skin Tone Matrix</h2>
+
+                    <div class="palette-preview" id="palettePreview"></div>
+
+                    <div class="metrics-box">
+                        <h3 class="metrics-title">Detailed Analysis Metrics:</h3>
+
+                        <div class="metric-item">
+                            <span class="metric-label">• Fitzpatrick Type:</span>
+                            <span class="metric-value" id="fitzpatrick"></span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">• ITA Angle:</span>
+                            <span class="metric-value" id="itaValue"></span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">• Brightness (L*):</span>
+                            <span class="metric-value" id="brightness"></span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">• Melanin Index:</span>
+                            <span class="metric-value" id="melanin"></span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">• Detected RGB:</span>
+                            <span class="metric-value rgb-display">
+                                <span class="rgb-color-box" id="rgbBox"></span>
+                                <span id="rgbText"></span>
+                            </span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-label">• Undertone:</span>
+                            <span class="metric-value" id="undertone"></span>
+                        </div>
+                    </div>
+
+                    <p class="note-text">
+                        <strong>📌 Note:</strong> The matrix shows 8 reference shades for your category<br>
+                        • Your tone: RGB<span id="closestRGB"></span><br>
+                        • Numbers 1-8 go from lighter to deeper shades
+                    </p>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" id="endBtn" onclick="finish('end')">End Analysis</button>
+                <button class="btn btn-primary" id="newBtn" onclick="finish('new')">Start New Analysis</button>
+            </div>
+
+            <p class="privacy-note">Either button permanently deletes your uploaded and analysed images from our server.</p>
+        </div>
+    </div>
+
+    <script>
+        window.onload = async function() {
+            try {
+                const response = await fetch('/get_results');
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    displayResults(data);
+                } else {
+                    alert(data.error || 'Failed to load results');
+                    window.location.href = '/';
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                alert('Error loading results. Please try again.');
+            }
+        };
+
+        function displayResults(data) {
+            document.getElementById('loading').classList.remove('active');
+            document.getElementById('content').style.display = 'block';
+
+            document.getElementById('overlayImage').src =
+                '/static/results/privacy_masked.jpg?t=' + new Date().getTime();
+
+            document.getElementById('categoryTitle').textContent = data.category;
+            document.getElementById('fitzpatrick').textContent = data.category;
+            document.getElementById('itaValue').textContent = data.ita.toFixed(1) + '°';
+            document.getElementById('brightness').textContent = data.brightness.toFixed(1);
+            document.getElementById('melanin').textContent = data.melanin_index.toFixed(1);
+
+            const rgb = data.skin_rgb;
+            const rgbString = `(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+            document.getElementById('rgbText').textContent = rgbString;
+            document.getElementById('closestRGB').textContent = rgbString;
+            document.getElementById('rgbBox').style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+
+            document.getElementById('undertone').textContent = data.undertone || 'Neutral';
+
+            const container = document.getElementById('palettePreview');
+            container.innerHTML = '';
+            data.skin_tone_palette.forEach(([r, g, b], index) => {
+                const swatch = document.createElement('div');
+                swatch.className = 'palette-color';
+                swatch.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
+                const number = document.createElement('span');
+                number.className = 'color-number';
+                number.textContent = index + 1;
+                swatch.appendChild(number);
+
+                container.appendChild(swatch);
+            });
+        }
+
+        // Both buttons delete all uploaded and analysed images first
+        async function finish(action) {
+            document.getElementById('endBtn').disabled = true;
+            document.getElementById('newBtn').disabled = true;
+
+            try {
+                await fetch('/clear_data', { method: 'POST' });
+            } catch (err) {
+                console.error('Cleanup error:', err);
+            }
+
+            window.location.href = (action === 'end') ? '/end' : '/gender';
+        }
+    </script>
+</body>
+</html>

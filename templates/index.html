@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TonePrint - AI Skin Tone Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 22px 33px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 55px 66px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 95%;
+            width: 100%;
+            min-height: 80vh;
+            animation: fadeInUp 0.8s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            width: 165px;
+            height: 165px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 53px;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        h1 strong {
+            font-weight: 700;
+        }
+
+        .tagline {
+            color: #667eea;
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 24px;
+            margin-bottom: 33px;
+            line-height: 1.6;
+        }
+
+        .features {
+            text-align: left;
+            margin: 33px auto;
+            padding: 0 22px;
+            max-width: 1400px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateX(5px);
+            background: #e9ecef;
+        }
+
+        .feature-icon {
+            display: none;
+        }
+
+        .feature-text {
+            color: #555;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .feature-text strong {
+            color: #333;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 22px 66px;
+            font-size: 24px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            display: inline-block;
+            align-self: center;
+            margin-top: 20px;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-start:active {
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                padding: 44px 33px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .tagline {
+                font-size: 15px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .feature-text {
+                font-size: 14px;
+            }
+
+            .btn-start {
+                font-size: 18px;
+                padding: 16px 44px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 40px 30px;
+                min-height: auto;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            .tagline {
+                font-size: 20px;
+            }
+
+            .subtitle {
+                font-size: 24px;
+            }
+
+            .logo {
+                width: 180px;
+                height: 180px;
+            }
+
+            .feature-text {
+                font-size: 18px;
+            }
+
+            .btn-start {
+                font-size: 24px;
+                padding: 20px 50px;
+            }
+        }
+    
+        @media (min-width: 900px) {
+            html { zoom: 0.5; }
+            body { min-height: 200vh; }
+            .container { min-height: 160vh; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="/static/images/logo.png" alt="TonePrint Logo">
+        </div>
+        
+        <h1><strong>TonePrint</strong></h1>
+        <p class="tagline">"Know Your Skin Tone"</p>
+        <p class="subtitle">
+            Discover your skin tone with AI-powered analysis
+        </p>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <div class="feature-text">
+                    <strong>Detailed Skin Tone Report</strong> with Fitzpatrick type, ITA angle, brightness, melanin index and undertone
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <div class="feature-text">
+                    <strong>Advanced AI Analysis</strong> using Fitzpatrick scale classification
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-text">
+                    <strong>Privacy First</strong> - Your images are deleted as soon as you finish
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">✨</div>
+                <div class="feature-text">
+                    <strong>Skin Tone Matrix</strong> showing 8 reference shades for your skin tone category
+                </div>
+            </div>
+        </div>
+
+        <a href="/gender" class="btn-start">Get Started</a>
+    </div>
+</body>
+</html>
