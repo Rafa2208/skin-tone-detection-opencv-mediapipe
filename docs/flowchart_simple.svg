@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 780" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="background:#fff" font-family="Arial, Helvetica, sans-serif">
+<title>Skin tone analysis flowchart</title>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#000"/></marker></defs>
+<rect width="900" height="780" fill="#fff"/>
+<rect x="240" y="24" width="420" height="46" rx="23" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="450" y="53" font-size="17" text-anchor="middle" fill="#000" font-weight="700">Face photo</text>
+<line x1="450" y1="70" x2="450" y2="96" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="240" y="96" width="420" height="54" rx="10" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="450" y="119" font-size="17" text-anchor="middle" fill="#000" font-weight="700">Face detection</text>
+<text x="450" y="139" font-size="13" text-anchor="middle" fill="#000">MediaPipe Face Mesh</text>
+<line x1="450" y1="150" x2="450" y2="176" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="240" y="176" width="420" height="54" rx="10" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="450" y="199" font-size="17" text-anchor="middle" fill="#000" font-weight="700">Lighting correction</text>
+<text x="450" y="219" font-size="13" text-anchor="middle" fill="#000">white balance and CLAHE</text>
+<line x1="450" y1="230" x2="450" y2="256" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="240" y="256" width="420" height="54" rx="10" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="450" y="279" font-size="17" text-anchor="middle" fill="#000" font-weight="700">Skin sampling</text>
+<text x="450" y="299" font-size="13" text-anchor="middle" fill="#000">forehead and cheeks</text>
+<line x1="450" y1="310" x2="450" y2="336" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="240" y="336" width="420" height="54" rx="10" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="450" y="359" font-size="17" text-anchor="middle" fill="#000" font-weight="700">Metrics</text>
+<text x="450" y="379" font-size="13" text-anchor="middle" fill="#000">L*, ITA and melanin index</text>
+<line x1="450" y1="390" x2="450" y2="416" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="240" y="416" width="420" height="54" rx="10" fill="#000" stroke="#000" stroke-width="2.5"/>
+<text x="450" y="439" font-size="17" text-anchor="middle" fill="#fff" font-weight="700">Fitzpatrick classification</text>
+<text x="450" y="459" font-size="13" text-anchor="middle" fill="#fff">first matching rule wins</text>
+<line x1="450" y1="470" x2="450" y2="496" stroke="#000" stroke-width="2.5"/>
+<line x1="110" y1="496" x2="790" y2="496" stroke="#000" stroke-width="2.5"/>
+<line x1="110" y1="496" x2="110" y2="522" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="35" y="522" width="150" height="56" rx="8" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="110" y="546" font-size="16" text-anchor="middle" fill="#000" font-weight="700">Very Light</text>
+<text x="110" y="565" font-size="13" text-anchor="middle" fill="#000">Type I-II</text>
+<line x1="110" y1="578" x2="110" y2="604" stroke="#000" stroke-width="2.5"/>
+<line x1="280" y1="496" x2="280" y2="522" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="205" y="522" width="150" height="56" rx="8" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="280" y="546" font-size="16" text-anchor="middle" fill="#000" font-weight="700">Light</text>
+<text x="280" y="565" font-size="13" text-anchor="middle" fill="#000">Type II-III</text>
+<line x1="280" y1="578" x2="280" y2="604" stroke="#000" stroke-width="2.5"/>
+<line x1="450" y1="496" x2="450" y2="522" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="375" y="522" width="150" height="56" rx="8" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="450" y="546" font-size="16" text-anchor="middle" fill="#000" font-weight="700">Intermediate</text>
+<text x="450" y="565" font-size="13" text-anchor="middle" fill="#000">Type III-IV</text>
+<line x1="450" y1="578" x2="450" y2="604" stroke="#000" stroke-width="2.5"/>
+<line x1="620" y1="496" x2="620" y2="522" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="545" y="522" width="150" height="56" rx="8" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="620" y="546" font-size="16" text-anchor="middle" fill="#000" font-weight="700">Brown</text>
+<text x="620" y="565" font-size="13" text-anchor="middle" fill="#000">Type IV-V</text>
+<line x1="620" y1="578" x2="620" y2="604" stroke="#000" stroke-width="2.5"/>
+<line x1="790" y1="496" x2="790" y2="522" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="715" y="522" width="150" height="56" rx="8" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="790" y="546" font-size="16" text-anchor="middle" fill="#000" font-weight="700">Dark</text>
+<text x="790" y="565" font-size="13" text-anchor="middle" fill="#000">Type V-VI</text>
+<line x1="790" y1="578" x2="790" y2="604" stroke="#000" stroke-width="2.5"/>
+<line x1="110" y1="604" x2="790" y2="604" stroke="#000" stroke-width="2.5"/>
+<line x1="450" y1="604" x2="450" y2="630" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="240" y="630" width="420" height="54" rx="10" fill="#fff" stroke="#000" stroke-width="2.5"/>
+<text x="450" y="653" font-size="17" text-anchor="middle" fill="#000" font-weight="700">Result</text>
+<text x="450" y="673" font-size="13" text-anchor="middle" fill="#000">skin tone matrix and undertone</text>
+<line x1="450" y1="684" x2="450" y2="710" stroke="#000" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="240" y="710" width="420" height="46" rx="23" fill="#000" stroke="#000" stroke-width="2.5"/>
+<text x="450" y="739" font-size="17" text-anchor="middle" fill="#fff" font-weight="700">Images deleted: privacy by design</text>
+</svg>
