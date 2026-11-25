@@ -6,6 +6,136 @@ Skin tone detection from a single face photo. The pipeline locates facial skin r
   <img src="docs/flowchart_simple.svg" width="500" alt="Skin tone analysis flowchart">
 </p>
 
+## Application screenshots
+
+### 1. Home page
+
+Landing page of the application.
+
+<p align="center">
+  <img src="docs/screenshots/01-home-page.png" width="850" alt="Home page">
+</p>
+
+### 2. Gender selection
+
+Step 1 of the flow.
+
+<p align="center">
+  <img src="docs/screenshots/02-gender-selection.png" width="850" alt="Gender selection">
+</p>
+
+### 3. Capture or upload page
+
+Webcam capture or image upload, with photo guidelines.
+
+<p align="center">
+  <img src="docs/screenshots/03-capture-or-upload.png" width="850" alt="Capture or upload page">
+</p>
+
+### 4. Test: uploading a group photo
+
+Image with several people selected for upload.
+
+<p align="center">
+  <img src="docs/screenshots/04-upload-group-photo.png" width="850" alt="Test: uploading a group photo">
+</p>
+
+### 5. Validation error: multiple faces detected
+
+Only one face per photo is accepted.
+
+<p align="center">
+  <img src="docs/screenshots/05-error-multiple-faces.png" width="850" alt="Validation error: multiple faces detected">
+</p>
+
+### 6. Test: uploading an image without a face
+
+Non face image selected for upload.
+
+<p align="center">
+  <img src="docs/screenshots/06-upload-non-face-image.png" width="850" alt="Test: uploading an image without a face">
+</p>
+
+### 7. Validation error: no human face detected
+
+Image is rejected before analysis.
+
+<p align="center">
+  <img src="docs/screenshots/07-error-no-face-detected.png" width="850" alt="Validation error: no human face detected">
+</p>
+
+### 8. Test: uploading a valid photo (example 1)
+
+Single clear face selected for upload.
+
+<p align="center">
+  <img src="docs/screenshots/08-upload-example-1.png" width="850" alt="Test: uploading a valid photo (example 1)">
+</p>
+
+### 9. Face detection verification (example 1)
+
+Detection confidence and face coverage check.
+
+<p align="center">
+  <img src="docs/screenshots/09-face-verification-example-1.png" width="850" alt="Face detection verification (example 1)">
+</p>
+
+### 10. Results: Very Light (Type I-II)
+
+Privacy masked image, skin tone matrix and metrics.
+
+<p align="center">
+  <img src="docs/screenshots/10-results-example-1.png" width="850" alt="Results: Very Light (Type I-II)">
+</p>
+
+### 11. Test: uploading a valid photo (example 2)
+
+Single clear face selected for upload.
+
+<p align="center">
+  <img src="docs/screenshots/11-upload-example-2.png" width="850" alt="Test: uploading a valid photo (example 2)">
+</p>
+
+### 12. Face detection verification (example 2)
+
+Detection confidence and face coverage check.
+
+<p align="center">
+  <img src="docs/screenshots/12-face-verification-example-2.png" width="850" alt="Face detection verification (example 2)">
+</p>
+
+### 13. Results: Intermediate (Type III-IV)
+
+Privacy masked image, skin tone matrix and metrics.
+
+<p align="center">
+  <img src="docs/screenshots/13-results-example-2.png" width="850" alt="Results: Intermediate (Type III-IV)">
+</p>
+
+### 14. Test: uploading a valid photo (example 3)
+
+Single clear face selected for upload.
+
+<p align="center">
+  <img src="docs/screenshots/14-upload-example-3.png" width="850" alt="Test: uploading a valid photo (example 3)">
+</p>
+
+### 15. Face detection verification (example 3)
+
+Detection confidence and face coverage check.
+
+<p align="center">
+  <img src="docs/screenshots/15-face-verification-example-3.png" width="850" alt="Face detection verification (example 3)">
+</p>
+
+### 16. Results: Brown (Type IV-V)
+
+Privacy masked image, skin tone matrix and metrics.
+
+<p align="center">
+  <img src="docs/screenshots/16-results-example-3.png" width="850" alt="Results: Brown (Type IV-V)">
+</p>
+
 ## Method
 
 1. **Image validation:** size check (100 to 5000 px), low detail check, and exactly one face (MediaPipe Face Detection).
