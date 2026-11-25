@@ -145,7 +145,7 @@ Privacy masked image, skin tone matrix and metrics.
    |---|---|---|
    | Detection confidence | `score` returned by MediaPipe Face Detection | at least 0.7 |
    | Face aspect ratio | `face_width / face_height` | 0.6 to 1.4 |
-   | Face coverage | `(face_width x face_height) / (image_width x image_height)` | 5% to 80% |
+   | Face coverage | `(face_width x face_height(face_area)) / (image_width x image_height(image_area))` | 5% to 80% |
 
    **Bounding box:** the pretrained MediaPipe detector predicts the rectangle around the face. It is returned as relative values between 0 and 1 (`xmin`, `ymin`, `width`, `height`), so it works for any image size. The values are converted to pixels:
 
