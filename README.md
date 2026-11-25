@@ -6,11 +6,11 @@ Skin tone detection from a single face photo. The pipeline locates facial skin r
   <img src="docs/flowchart_simple.svg" width="500" alt="Skin tone analysis flowchart">
 </p>
 
-## Application screenshots
+## Deployment screenshots
 
 ### 1. Home page
 
-Landing page of the application.
+Landing page.
 
 <p align="center">
   <img src="docs/screenshots/01-home-page.png" width="850" alt="Home page">
@@ -139,7 +139,27 @@ Privacy masked image, skin tone matrix and metrics.
 ## Method
 
 1. **Image validation:** size check (100 to 5000 px), low detail check, and exactly one face (MediaPipe Face Detection).
-2. **Face verification:** MediaPipe Face Mesh with detection confidence of at least 0.7, face aspect ratio between 0.6 and 1.4, and face coverage between 5% and 80% of the image.
+2. **Face verification:** MediaPipe Face Detection returns a bounding box and a confidence score, and the face must pass three checks before analysis continues.
+
+   | Check | Formula | Accepted range |
+   |---|---|---|
+   | Detection confidence | `score` returned by MediaPipe Face Detection | at least 0.7 |
+   | Face aspect ratio | `face_width / face_height` | 0.6 to 1.4 |
+   | Face coverage | `(face_width x face_height) / (image_width x image_height)` | 5% to 80% |
+
+   **Bounding box:** the pretrained MediaPipe detector predicts the rectangle around the face. It is returned as relative values between 0 and 1 (`xmin`, `ymin`, `width`, `height`), so it works for any image size. The values are converted to pixels:
+
+   ```
+   face_width  = bbox.width  x image_width
+   face_height = bbox.height x image_height
+   ```
+
+   **Example:** for a 1000 x 800 image with a 300 x 360 px face box and a confidence of 0.92:
+   - aspect ratio = 300 / 360 = 0.83, which passes
+   - coverage = 108,000 / 800,000 = 13.5%, which passes
+   - confidence 0.92 is at least 0.7, which passes
+
+   A very low or very high aspect ratio means the box is not face shaped. A coverage below 5% means the face is too small to sample reliably, and above 80% it is too close to the camera. The verified face is then cropped with 50 px of padding, and a face mesh overlay is drawn for the verification page.
 3. **Illumination correction:** gray world white balance, then CLAHE on the L channel in LAB space, blended 70% CLAHE with 30% original.
 4. **Skin sampling:** 20 landmark points on the forehead (9) and both cheeks (11), each read as a 3x3 median, followed by IQR outlier removal and averaging to one RGB value.
 5. **Metrics:** brightness, ITA angle and melanin index computed from the LAB values.
